@@ -26,22 +26,22 @@ assistMid = assist.getProfile().mid
 renBot = [clientMid,assistMid]
 KCML = [client,assist]
 
-vol = """Menu :
+vol = """Simple Command:
 
-[~] Help <- Keyword
-[~] My Info <- My Contact
-[~] Tagall <- Tag all
-[~] Sider on <- Check Sider
-[~] Sider off <- Stop Check Sider
+[+] ? <- Look command
+[+] 1 <- Look your contact
+[+] 2 <- Look speedbot
+[+] 3 <- Tagall
+[+] 9 <- Check reader
+[+] 0 <- Stop check reader
 
-Bot Protect :
+Admin Command :
 
-[~] Pkick:[on/off] <- Protect kick
+[~] Pkick:[on/off] <- Protectkick
 [~] ! @tag <- Kick with tag
-[~] Speed <- Speed Bot
 [~] . <- Joined assist
 [~] , <- Assist out
-[~] restart <- Restart bot
+[~] ; <- Restart bot
 
 [ SelfBot By : Admin -23 ]"""
 
@@ -110,16 +110,16 @@ while True:
                     if msg.contentType == 0:
                         if msg.toType in [0,2]:
                             contact = client.getContact(sender)
-                            if text.lower() == 'help':
+                            if text.lower() == '?':
                                 client.sendText(receiver, vol)
-                            elif text.lower() == 'myinfo':
+                            elif text.lower() == '1':
                                 client.sendMessage(receiver, None, contentMetadata={'mid': sender}, contentType=13)
-                            elif text.lower() == 'speed':
+                            elif text.lower() == '2':
                                 start = time.time()
                                 client.sendText(receiver, "[ C H E C K ] : [sendText]")
                                 elapsed_time = time.time() - start
                                 client.sendText(receiver, "[T I M E Response] : \n%s" % (elapsed_time))
-                            elif text.lower() == 'tagall':
+                            elif text.lower() == '3':
                                 group = client.getGroup(receiver)
                                 nama = [contact.mid for contact in group.members]
                                 nm1, nm2, nm3, nm4, nm5, jml = [], [], [], [], [], len(nama)
@@ -172,7 +172,7 @@ while True:
                                         nm5 += [nama[m]]
                                     client.mention(receiver, nm5)             
                             elif text.lower() == '.':
-                                if msg._from in admin:
+                                 if msg._from in admin:  
                                     try:
                                     G = client.getGroup(receiver)
                                     G.preventedJoinByTicket = False
@@ -186,30 +186,29 @@ while True:
                                 except Exception as axsd:
                                     print(axsd)
                             elif text.lower() == ',':
-                                if msg._from in admin:
+                                 if msg._from in admin:  
                                 assist.leaveGroup(receiver)
-                            elif text.lower() == 'sider on':
+                            elif text.lower() == '9':
                                 try:
                                     del cctv['point'][receiver]
                                     del cctv['sidermem'][receiver]
                                     del cctv['cyduk'][receiver]
-                                    client.sendText(receiver, "Check sider on!")
+                                    client.sendText(receiver, "Cek sider on!")
                                 except:
                                     pass
                                 cctv['point'][receiver] = msg.id
                                 cctv['sidermem'][receiver] = ""
                                 cctv['cyduk'][receiver]=True
-                            elif text.lower() == 'sider off':
+                            elif text.lower() == '0':
                                 if msg.to in cctv['point']:
                                     cctv['cyduk'][receiver]=False
-                                    client.sendText(receiver, "Check Sider off!")
+                                    client.sendText(receiver, "Check reader off!")
                                 else:
                                     client.sendText(receiver, "Type 9 to get data siders")
-                            elif text.lower() == 'restart':
-                                    if msg._from in admin:
-                                    restart_program()
+                            elif text.lower() == ';':
+                                 if msg._from in admin:  
+                                restart_program()
                             elif text.lower().startswith("!"):
-                                if msg._from in admin:
                                 targets = []
                                 key = eval(msg.contentMetadata["MENTION"])
                                 key["MENTIONEES"][0]["M"]
@@ -219,8 +218,8 @@ while True:
                                     if target not in renBot:
                                         random.choice(KCML).kickoutFromGroup(receiver, [target])
                             elif text.lower().startswith("pkick"):
-                               if msg._from in admin: 
-                               pset = text.split(":")
+                                 if msg._from in admin:  
+                                pset = text.split(":")
                                 pk = text.replace(pset[0] + ":","")
                                 if pk == "on":
                                     if receiver in protect["kick"]:
