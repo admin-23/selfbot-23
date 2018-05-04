@@ -26,22 +26,22 @@ assistMid = assist.getProfile().mid
 renBot = [clientMid,assistMid]
 KCML = [client,assist]
 
-vol = """Simple Command:
+vol = """Menu :
 
 [+] Help <- Keyword
 [+] My Info <- My Contact
-[+] Tag all <- Tag all
-[+] Sider On <- Check Sider
-[+] Sider Off <- Stop Check Sider
+[+] Tagall <- Tag all
+[+] Sider on <- Check Sider
+[+] Sider off <- Stop Check Sider
 
-Protect command:
+Bot Protect :
 
-[#] Pkick:[on/off] <- Protectkick
+[#] Pkick:[on/off] <- Protect kick
 [#] ! @tag <- Kick with tag
 [#] Speed <- Speed Bot
 [#] . <- Joined assist
 [#] , <- Assist out
-[#] Restart <- Restart bot
+[#] restart <- Restart bot
 
 [ SelfBot By : Admin -23 ]"""
 
@@ -110,16 +110,16 @@ while True:
                     if msg.contentType == 0:
                         if msg.toType in [0,2]:
                             contact = client.getContact(sender)
-                            if text.lower() == 'Help':
+                            if text.lower() == 'help':
                                 client.sendText(receiver, vol)
-                            elif text.lower() == 'My Info':
+                            elif text.lower() == 'myinfo':
                                 client.sendMessage(receiver, None, contentMetadata={'mid': sender}, contentType=13)
-                            elif text.lower() == 'Speed':
+                            elif text.lower() == 'speed':
                                 start = time.time()
                                 client.sendText(receiver, "[ C H E C K ] : [sendText]")
                                 elapsed_time = time.time() - start
                                 client.sendText(receiver, "[T I M E Response] : \n%s" % (elapsed_time))
-                            elif text.lower() == 'Tag all':
+                            elif text.lower() == 'tagall':
                                 group = client.getGroup(receiver)
                                 nama = [contact.mid for contact in group.members]
                                 nm1, nm2, nm3, nm4, nm5, jml = [], [], [], [], [], len(nama)
@@ -186,7 +186,7 @@ while True:
                                     print(axsd)
                             elif text.lower() == ',':
                                 assist.leaveGroup(receiver)
-                            elif text.lower() == 'Sider On':
+                            elif text.lower() == 'sider on':
                                 try:
                                     del cctv['point'][receiver]
                                     del cctv['sidermem'][receiver]
@@ -197,13 +197,13 @@ while True:
                                 cctv['point'][receiver] = msg.id
                                 cctv['sidermem'][receiver] = ""
                                 cctv['cyduk'][receiver]=True
-                            elif text.lower() == 'Sider Off':
+                            elif text.lower() == 'sider off':
                                 if msg.to in cctv['point']:
                                     cctv['cyduk'][receiver]=False
                                     client.sendText(receiver, "Check Sider off!")
                                 else:
                                     client.sendText(receiver, "Type 9 to get data siders")
-                            elif text.lower() == 'Restart':
+                            elif text.lower() == 'restart':
                                 restart_program()
                             elif text.lower().startswith("!"):
                                 targets = []
