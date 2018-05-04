@@ -31,8 +31,8 @@ vol = """Simple Command:
 [+] Help <- Keyword
 [+] My Info <- My Contact
 [+] Tag all <- Tag all
-[+] Sider On <- Check reader
-[+] Sider Off <- Stop check reader
+[+] Sider On <- Check Sider
+[+] Sider Off <- Stop Check Sider
 
 Protect command:
 
@@ -110,16 +110,16 @@ while True:
                     if msg.contentType == 0:
                         if msg.toType in [0,2]:
                             contact = client.getContact(sender)
-                            if text.lower() == '?':
+                            if text.lower() == 'Help':
                                 client.sendText(receiver, vol)
-                            elif text.lower() == '1':
+                            elif text.lower() == 'My Info':
                                 client.sendMessage(receiver, None, contentMetadata={'mid': sender}, contentType=13)
-                            elif text.lower() == '2':
+                            elif text.lower() == 'Speed':
                                 start = time.time()
                                 client.sendText(receiver, "[ C H E C K ] : [sendText]")
                                 elapsed_time = time.time() - start
                                 client.sendText(receiver, "[T I M E Response] : \n%s" % (elapsed_time))
-                            elif text.lower() == '3':
+                            elif text.lower() == 'Tag all':
                                 group = client.getGroup(receiver)
                                 nama = [contact.mid for contact in group.members]
                                 nm1, nm2, nm3, nm4, nm5, jml = [], [], [], [], [], len(nama)
@@ -186,24 +186,24 @@ while True:
                                     print(axsd)
                             elif text.lower() == ',':
                                 assist.leaveGroup(receiver)
-                            elif text.lower() == '9':
+                            elif text.lower() == 'Sider On':
                                 try:
                                     del cctv['point'][receiver]
                                     del cctv['sidermem'][receiver]
                                     del cctv['cyduk'][receiver]
-                                    client.sendText(receiver, "Cek sider on!")
+                                    client.sendText(receiver, "Check sider on!")
                                 except:
                                     pass
                                 cctv['point'][receiver] = msg.id
                                 cctv['sidermem'][receiver] = ""
                                 cctv['cyduk'][receiver]=True
-                            elif text.lower() == '0':
+                            elif text.lower() == 'Sider Off':
                                 if msg.to in cctv['point']:
                                     cctv['cyduk'][receiver]=False
-                                    client.sendText(receiver, "Check reader off!")
+                                    client.sendText(receiver, "Check Sider off!")
                                 else:
                                     client.sendText(receiver, "Type 9 to get data siders")
-                            elif text.lower() == ';':
+                            elif text.lower() == 'Restart':
                                 restart_program()
                             elif text.lower().startswith("!"):
                                 targets = []
