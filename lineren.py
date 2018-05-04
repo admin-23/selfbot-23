@@ -28,12 +28,12 @@ KCML = [client,assist]
 
 vol = """Menu Command :
 
-[~] ? <- Look command
+[~] ? <- Menu
 [~] 1 <- Look your contact
 [~] 2 <- Look speedbot
 [~] 3 <- Tagall
-[~] 9 <- Check reader
-[~] 0 <- Stop check reader
+[~] 9 <- Check Sider
+[~] 0 <- Stop Check Sider
 
 Admin Command :
 
@@ -187,13 +187,13 @@ while True:
                                     print(axsd)
                             elif text.lower() == ',':
                                  if msg._from in admin:  
-                                assist.leaveGroup(receiver)
-                            elif text.lower() == '9':
-                                try:
+                                    assist.leaveGroup(receiver)
+                                 elif text.lower() == '9':
+                                    try:
                                     del cctv['point'][receiver]
                                     del cctv['sidermem'][receiver]
                                     del cctv['cyduk'][receiver]
-                                    client.sendText(receiver, "Cek sider on!")
+                                    client.sendText(receiver, "Check Sider On!")
                                 except:
                                     pass
                                 cctv['point'][receiver] = msg.id
@@ -202,32 +202,33 @@ while True:
                             elif text.lower() == '0':
                                 if msg.to in cctv['point']:
                                     cctv['cyduk'][receiver]=False
-                                    client.sendText(receiver, "Check reader off!")
+                                    client.sendText(receiver, "Check Sider off!")
                                 else:
                                     client.sendText(receiver, "Type 9 to get data siders")
                             elif text.lower() == ';':
                                  if msg._from in admin:  
-                                restart_program()
+                                    restart_program()
                             elif text.lower().startswith("!"):
-                                targets = []
-                                key = eval(msg.contentMetadata["MENTION"])
-                                key["MENTIONEES"][0]["M"]
-                                for x in key["MENTIONEES"]:
+                                if msg._from in admin:  
+                                    targets = []
+                                    key = eval(msg.contentMetadata["MENTION"])
+                                    key["MENTIONEES"][0]["M"]
+                                    for x in key["MENTIONEES"]:
                                     targets.append(x["M"])
-                                for target in targets:
-                                    if target not in renBot:
+                                    for target in targets:
+                                        if target not in renBot:
                                         random.choice(KCML).kickoutFromGroup(receiver, [target])
                             elif text.lower().startswith("pkick"):
-                                 if msg._from in admin:  
-                                pset = text.split(":")
-                                pk = text.replace(pset[0] + ":","")
-                                if pk == "on":
+                                if msg._from in admin:  
+                                    pset = text.split(":")
+                                    pk = text.replace(pset[0] + ":","")
+                                    if pk == "on":
                                     if receiver in protect["kick"]:
                                         client.sendText(receiver, "Protect kick already On!")
                                     else:
                                         protect["kick"][receiver] = True
                                         client.sendText(receiver, "Protect kick set On!")
-                                if pk == "off":
+                                    if pk == "off":
                                     if receiver in protect["kick"]:
                                         del protect["kick"][receiver]
                                         client.sendText(receiver, "Protect kick set Off!")
