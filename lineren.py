@@ -28,20 +28,20 @@ KCML = [client,assist]
 
 vol = """Menu :
 
-[+] Help <- Keyword
-[+] My Info <- My Contact
-[+] Tagall <- Tag all
-[+] Sider on <- Check Sider
-[+] Sider off <- Stop Check Sider
+[~] Help <- Keyword
+[~] My Info <- My Contact
+[~] Tagall <- Tag all
+[~] Sider on <- Check Sider
+[~] Sider off <- Stop Check Sider
 
 Bot Protect :
 
-[#] Pkick:[on/off] <- Protect kick
-[#] ! @tag <- Kick with tag
-[#] Speed <- Speed Bot
-[#] . <- Joined assist
-[#] , <- Assist out
-[#] restart <- Restart bot
+[~] Pkick:[on/off] <- Protect kick
+[~] ! @tag <- Kick with tag
+[~] Speed <- Speed Bot
+[~] . <- Joined assist
+[~] , <- Assist out
+[~] restart <- Restart bot
 
 [ SelfBot By : Admin -23 ]"""
 
@@ -172,7 +172,8 @@ while True:
                                         nm5 += [nama[m]]
                                     client.mention(receiver, nm5)             
                             elif text.lower() == '.':
-                                try:
+                                if msg._from in admin:
+                                    try:
                                     G = client.getGroup(receiver)
                                     G.preventedJoinByTicket = False
                                     client.updateGroup(G)
@@ -185,6 +186,7 @@ while True:
                                 except Exception as axsd:
                                     print(axsd)
                             elif text.lower() == ',':
+                                if msg._from in admin:
                                 assist.leaveGroup(receiver)
                             elif text.lower() == 'sider on':
                                 try:
@@ -204,8 +206,10 @@ while True:
                                 else:
                                     client.sendText(receiver, "Type 9 to get data siders")
                             elif text.lower() == 'restart':
-                                restart_program()
+                                    if msg._from in admin:
+                                    restart_program()
                             elif text.lower().startswith("!"):
+                                if msg._from in admin:
                                 targets = []
                                 key = eval(msg.contentMetadata["MENTION"])
                                 key["MENTIONEES"][0]["M"]
@@ -215,7 +219,8 @@ while True:
                                     if target not in renBot:
                                         random.choice(KCML).kickoutFromGroup(receiver, [target])
                             elif text.lower().startswith("pkick"):
-                                pset = text.split(":")
+                               if msg._from in admin: 
+                               pset = text.split(":")
                                 pk = text.replace(pset[0] + ":","")
                                 if pk == "on":
                                     if receiver in protect["kick"]:
