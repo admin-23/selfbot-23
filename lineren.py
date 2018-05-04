@@ -26,14 +26,14 @@ assistMid = assist.getProfile().mid
 renBot = [clientMid,assistMid]
 KCML = [client,assist]
 
-vol = """Simple Command:
+vol = """Menu Command :
 
-[+] ? <- Look command
-[+] 1 <- Look your contact
-[+] 2 <- Look speedbot
-[+] 3 <- Tagall
-[+] 9 <- Check reader
-[+] 0 <- Stop check reader
+[~] ? <- Look command
+[~] 1 <- Look your contact
+[~] 2 <- Look speedbot
+[~] 3 <- Tagall
+[~] 9 <- Check reader
+[~] 0 <- Stop check reader
 
 Admin Command :
 
