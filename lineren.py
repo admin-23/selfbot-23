@@ -28,25 +28,22 @@ KCML = [client,assist]
 
 vol = """Menu Command :
 
-[~] ? <- Look command
-[~] 1 <- Look your contact
-[~] 2 <- Look speedbot
-[~] 3 <- Tagall
-[~] . <- Joined assist
-[~] , <- Assist out
-[~] 9 <- Check reader
-[~] 0 <- Stop check reader
-[~] ; <- Restart bot
+◄]·♦·Menu For Public·♦·[►
+[•] ? <- Look Your Command
+[•] 1 <- Look Your Contact
+[•] 2 <- Look Speed Bot
+[•] 3 <- Tagall
+[•] 9 <- Check Sider On
+[•] 0 <- Check Sider Off
+◄]·♦·Menu For Admin·♦·[►
+-==================-
+[•] . <- Joinned Assit
+[•] , <- Leave Assist
+[•] ; <- Restart Bot
+[•] Pkick:[on/off] <- Protectkick
+[•] ! @tag <- Kick with tag
 
-Protect Admin command:
-
-[~] Pkick:[on/off] <- Protectkick
-[~] ! @tag <- Kick with tag
-[~] . <- Joined assist
-[~] , <- Assist out
-[~] ; <- Restart bot
-
-[ SelfBot By : Admin-23 ]"""
+[ Self Bot ]"""
 
 protect = {
     "kick":{}
@@ -175,6 +172,7 @@ while True:
                                         nm5 += [nama[m]]
                                     client.mention(receiver, nm5)             
                             elif text.lower() == '.':
+                                if msg.from_ in admin:
                                 try:
                                     G = client.getGroup(receiver)
                                     G.preventedJoinByTicket = False
@@ -188,6 +186,7 @@ while True:
                                 except Exception as axsd:
                                     print(axsd)
                             elif text.lower() == ',':
+                                if msg.from_ in admin:
                                 assist.leaveGroup(receiver)
                             elif text.lower() == '9':
                                 try:
@@ -207,6 +206,7 @@ while True:
                                 else:
                                     client.sendText(receiver, "Type 9 to get data siders")
                             elif text.lower() == ';':
+                                if msg.from_ in admin:
                                 restart_program()
                             elif text.lower().startswith("!"):
                                 targets = []
@@ -218,6 +218,7 @@ while True:
                                     if target not in renBot:
                                         random.choice(KCML).kickoutFromGroup(receiver, [target])
                             elif text.lower().startswith("pkick"):
+                                if msg.from_ in admin:
                                 pset = text.split(":")
                                 pk = text.replace(pset[0] + ":","")
                                 if pk == "on":
