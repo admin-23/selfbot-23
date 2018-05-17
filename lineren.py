@@ -99,7 +99,7 @@ while True:
                         A = client.getGroup(op.param1)
                         A.preventedJoinByTicket = False
                         client.updateGroup(A)
-            if op.type == 26:
+            if op.type == 25:
                 msg = op.message
                 text = msg.text
                 msg_id = msg.id
@@ -172,7 +172,6 @@ while True:
                                         nm5 += [nama[m]]
                                     client.mention(receiver, nm5)             
                             elif text.lower() == '.':
-                                if msg.from_ in admin:
                                 try:
                                     G = client.getGroup(receiver)
                                     G.preventedJoinByTicket = False
@@ -186,7 +185,6 @@ while True:
                                 except Exception as axsd:
                                     print(axsd)
                             elif text.lower() == ',':
-                                if msg.from_ in admin:
                                 assist.leaveGroup(receiver)
                             elif text.lower() == '9':
                                 try:
@@ -206,7 +204,6 @@ while True:
                                 else:
                                     client.sendText(receiver, "Type 9 to get data siders")
                             elif text.lower() == ';':
-                                if msg.from_ in admin:
                                 restart_program()
                             elif text.lower().startswith("!"):
                                 targets = []
@@ -218,7 +215,6 @@ while True:
                                     if target not in renBot:
                                         random.choice(KCML).kickoutFromGroup(receiver, [target])
                             elif text.lower().startswith("pkick"):
-                                if msg.from_ in admin:
                                 pset = text.split(":")
                                 pk = text.replace(pset[0] + ":","")
                                 if pk == "on":
@@ -232,31 +228,3 @@ while True:
                                         del protect["kick"][receiver]
                                         client.sendText(receiver, "Protect kick set Off!")
                                     else:
-                                        client.sendText(receiver, "Protect kick already Off!")
-                except Exception as e:
-                    client.log("[SEND_MESSAGE] ERROR : " + str(e))
-            elif op.type == 55:
-                try:
-                    if cctv['cyduk'][op.param1]==True:
-                        if op.param1 in cctv['point']:
-                            Name = client.getContact(op.param2).displayName
-                            if Name in cctv['sidermem'][op.param1]:
-                                pass
-                            else:
-                                cctv['sidermem'][op.param1] += "\n~ " + Name
-                                client.sendText(op.param1, 'Terbaca oleh: '+Name)
-                        else:
-                            pass
-                    else:
-                        pass
-                except:
-                    pass
-
-            else:
-                pass
-#=========================================================================================================================================#
-            # Don't remove this line, if you wan't get error soon!
-            poll.setRevision(op.revision)
-            
-    except Exception as e:
-        client.log("[SINGLE_TRACE] ERROR : " + str(e))
