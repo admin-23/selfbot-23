@@ -26,25 +26,31 @@ assistMid = assist.getProfile().mid
 renBot = [clientMid,assistMid]
 KCML = [client,assist]
 
-vol = """Simple Command:
-Admin-23 Selfbot
+vol = """[ Help Command ]
 
-[+] ? <- Look command
-[+] 1 <- Look your contact
-[+] 2 <- Look speedbot
-[+] 3 <- Tagall
-[+] . <- Joined assist
-[+] , <- Assist out
-[+] 9 <- Check reader
-[+] 0 <- Stop check reader
-[+] ; <- Restart bot
+[ Help Menu ]
+[√] Help <- Look command
+[√] Me <- Look your contact
+[√] SPeed <- Look speedbot
+[√] Mention <- Tagall
+[√] Sideron <- Check reader
+[√] Sideroff <- Stop Check reader
+[ Menu Assist Admin ]
+[√] . <- Joined assist
+[√] , <- Assist out
+[ Menu Protect ]
+[√] ; <- Restart bot
+[√] Pkick:[on/off] <- Protectkick
+[√] ! @tag <- Kick with tag
+[ Rework ]
+[√] Admin -23 
+[√] Id Line -> http://line.me/ti/p/zNkQ4FqYmc 
+[ Note ]
+[√] Pergunakanlah Dengan Bijak •
 
-Protect command:
+[ Admin -23 Selfbot ]
 
-[#] Pkick:[on/off] <- Protectkick
-[#] ! @tag <- Kick with tag
-
-[ Admin-23 ]"""
+[©opy ®ight 2018 ]"""
 
 protect = {
     "kick":{}
@@ -111,16 +117,16 @@ while True:
                     if msg.contentType == 0:
                         if msg.toType in [0,2]:
                             contact = client.getContact(sender)
-                            if text.lower() == '?':
+                            if text.lower() == 'Help':
                                 client.sendText(receiver, vol)
-                            elif text.lower() == '1':
+                            elif text.lower() == 'Me':
                                 client.sendMessage(receiver, None, contentMetadata={'mid': sender}, contentType=13)
-                            elif text.lower() == '2':
+                            elif text.lower() == 'Speed':
                                 start = time.time()
                                 client.sendText(receiver, "[ C H E C K ] : [sendText]")
                                 elapsed_time = time.time() - start
                                 client.sendText(receiver, "[T I M E Response] : \n%s" % (elapsed_time))
-                            elif text.lower() == '3':
+                            elif text.lower() == 'Mention':
                                 group = client.getGroup(receiver)
                                 nama = [contact.mid for contact in group.members]
                                 nm1, nm2, nm3, nm4, nm5, jml = [], [], [], [], [], len(nama)
@@ -187,7 +193,7 @@ while True:
                                     print(axsd)
                             elif text.lower() == ',':
                                 assist.leaveGroup(receiver)
-                            elif text.lower() == '9':
+                            elif text.lower() == 'Sideron':
                                 try:
                                     del cctv['point'][receiver]
                                     del cctv['sidermem'][receiver]
@@ -198,12 +204,12 @@ while True:
                                 cctv['point'][receiver] = msg.id
                                 cctv['sidermem'][receiver] = ""
                                 cctv['cyduk'][receiver]=True
-                            elif text.lower() == '0':
+                            elif text.lower() == 'Sideroff':
                                 if msg.to in cctv['point']:
                                     cctv['cyduk'][receiver]=False
                                     client.sendText(receiver, "Check reader off!")
                                 else:
-                                    client.sendText(receiver, "Type 9 to get data siders")
+                                    client.sendText(receiver, "Type Sideron to get data siders")
                             elif text.lower() == ';':
                                 restart_program()
                             elif text.lower().startswith("!"):
